@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:serviceDescription xmlns:ns5="http://planets-project.eu/services/datatypes" xmlns:ns2="http://planets-project.eu/services" xmlns:ns4="http://planets-project.eu/services/tools" xmlns:ns3="http://purl.org/dc/terms/">
+    <ns3:title>A Test Service</ns3:title>
+    <ns2:classname>eu.planets_project.services.datatypes.ServiceDescriptionTest</ns2:classname>
+    <ns2:type>eu.planets_project.services.identify.Identify</ns2:type>
+    <ns2:parameters>
+        <name>planets:srv/par/test</name>
+        <value>true</value>
+    </ns2:parameters>
+    <ns3:description>This is just a simple test service description, used to unit test the Service Description code.</ns3:description>
+    <ns3:creator>Andrew N. Jackson &lt;Andrew.Jackson@bl.uk&gt;</ns3:creator>
+    <ns2:instructions>There are not special instructions for this service.</ns2:instructions>
+    <ns2:furtherInfo>http://www.planets-project.eu/</ns2:furtherInfo>
+    <ns2:inputFormat>planets:fmt/ext/jpg</ns2:inputFormat>
+    <ns2:inputFormat>planets:fmt/ext/jpeg</ns2:inputFormat>
+</ns2:serviceDescription>

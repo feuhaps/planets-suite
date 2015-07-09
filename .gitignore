@@ -18,9 +18,9 @@
 # Eclipse Files #
 #################
 .externalToolBuilders
-.settings
-.classpath
-.project
+#.settings
+#.classpath
+#.project
 *.md.html
 bin
 
