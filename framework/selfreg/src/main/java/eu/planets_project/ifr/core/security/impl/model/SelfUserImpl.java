@@ -58,22 +58,51 @@ public class SelfUserImpl implements User, Serializable {
 	@SuppressWarnings("unused")
     private static Logger log = Logger.getLogger(SelfUserImpl.class.getName());
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id = null;
+    @Column(name = "username", length = 50, nullable = false, unique = true)
     private String username; // required
+    @Column(name = "password", nullable = false)
     private String password; // required
     private String confirmPassword;
+    @Column(name = "first_name", length = 50, nullable = false)
     private String firstName; // required
+    @Column(name = "last_name", length = 50, nullable = false)
     private String lastName; // required
+    @Embedded
+    @Target(SelfAddressImpl.class)
     private SelfAddressImpl address;
+    @Column(name = "phone_number", nullable = true)
     private String phoneNumber;
+    @Column(name = "email", nullable = false, unique = true)
     private String email; // required; unique
+    @Column(name = "website", nullable = true)
     private String website;
     private String passwordHint;
+    @Version
     private Integer version;
+    @ManyToMany(
+    		targetEntity=eu.planets_project.ifr.core.security.impl.model.SelfRoleImpl.class,
+    		cascade={ CascadeType.PERSIST, CascadeType.MERGE },
+    		fetch=FetchType.EAGER)
+    @JoinTable(
+    		name = "user_role",
+    		joinColumns = { @JoinColumn(name = "user_id") },
+    		inverseJoinColumns={@JoinColumn(name="role_id")})
     private Set<Role> roles = new HashSet<Role>();
+    @Column(name = "account_enabled", nullable = false)
+    @Type(type="yes_no")
     private boolean enabled;
+    @Column(name = "account_expired", nullable = false)
+    @Type(type="yes_no")
     private boolean accountExpired;
+    @Column(name = "account_locked", nullable = false)
+    @Type(type="yes_no")
     private boolean accountLocked;
+    @Column(name = "credentials_expired", nullable = false)
+    @Type(type="yes_no")
     private boolean credentialsExpired;
     private boolean appliesAsProvider = false;
     /**
@@ -94,9 +123,9 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getId()
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id", nullable = false, unique = true)
     public Long getId() {
         return id;
     }
@@ -105,7 +134,7 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getVersion()
      */
-    @Version
+//    @Version
     public Integer getVersion() {
         return version;
     }
@@ -114,7 +143,7 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getUsername()
      */
-    @Column(name = "username", length = 50, nullable = false, unique = true)
+//    @Column(name = "username", length = 50, nullable = false, unique = true)
     public String getUsername() {
         return username;
     }
@@ -123,7 +152,7 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getPassword()
      */
-    @Column(name = "password", nullable = false)
+//    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -132,7 +161,7 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getFirstName()
      */
-    @Column(name = "first_name", length = 50, nullable = false)
+//    @Column(name = "first_name", length = 50, nullable = false)
     public String getFirstName() {
         return firstName;
     }
@@ -141,7 +170,7 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getLastName()
      */
-    @Column(name = "last_name", length = 50, nullable = false)
+//    @Column(name = "last_name", length = 50, nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -150,8 +179,8 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getAddress()
      */
-    @Embedded
-    @Target(SelfAddressImpl.class)
+//    @Embedded
+//    @Target(SelfAddressImpl.class)
     public Address getAddress() {
         return address;
     }
@@ -160,7 +189,7 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getEmail()
      */
-    @Column(name = "email", nullable = false, unique = true)
+//    @Column(name = "email", nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -169,7 +198,7 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getPhoneNumber()
      */
-    @Column(name = "phone_number", nullable = true)
+//    @Column(name = "phone_number", nullable = true)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -178,7 +207,7 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getWebsite()
      */
-    @Column(name = "website", nullable = true)
+//    @Column(name = "website", nullable = true)
     public String getWebsite() {
         return website;
     }
@@ -195,14 +224,14 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getRoles()
      */
-    @ManyToMany(
-    		targetEntity=eu.planets_project.ifr.core.security.impl.model.SelfRoleImpl.class,
-    		cascade={ CascadeType.PERSIST, CascadeType.MERGE },
-    		fetch=FetchType.EAGER)
-    @JoinTable(
-    		name = "user_role",
-    		joinColumns = { @JoinColumn(name = "user_id") },
-    		inverseJoinColumns={@JoinColumn(name="role_id")})
+//    @ManyToMany(
+//    		targetEntity=eu.planets_project.ifr.core.security.impl.model.SelfRoleImpl.class,
+//    		cascade={ CascadeType.PERSIST, CascadeType.MERGE },
+//    		fetch=FetchType.EAGER)
+//    @JoinTable(
+//    		name = "user_role",
+//    		joinColumns = { @JoinColumn(name = "user_id") },
+//    		inverseJoinColumns={@JoinColumn(name="role_id")})
     public Set<Role> getRoles() {
         return roles;
     }
@@ -211,8 +240,8 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getAccountEnabled()
      */
-    @Column(name = "account_enabled", nullable = false)
-    @Type(type="yes_no")
+//    @Column(name = "account_enabled", nullable = false)
+//    @Type(type="yes_no")
     public boolean getAccountEnabled() {
         return enabled;
     }
@@ -221,8 +250,8 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getAccountExpired()
      */
-    @Column(name = "account_expired", nullable = false)
-    @Type(type="yes_no")
+//    @Column(name = "account_expired", nullable = false)
+//    @Type(type="yes_no")
     public boolean getAccountExpired() {
         return accountExpired;
     }
@@ -231,8 +260,8 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getAccountLocked()
      */
-    @Column(name = "account_locked", nullable = false)
-    @Type(type="yes_no")
+//    @Column(name = "account_locked", nullable = false)
+//    @Type(type="yes_no")
     public boolean getAccountLocked() {
         return accountLocked;
     }
@@ -241,8 +270,8 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getCredentialsExpired()
      */
-    @Column(name = "credentials_expired", nullable = false)
-    @Type(type="yes_no")
+//    @Column(name = "credentials_expired", nullable = false)
+//    @Type(type="yes_no")
     public boolean getCredentialsExpired() {
         return credentialsExpired;
     }
@@ -251,7 +280,7 @@ public class SelfUserImpl implements User, Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.User#getFullName()
      */
-    @Transient
+//    @Transient
     public String getFullName() {
         return firstName + ' ' + lastName;
     }
