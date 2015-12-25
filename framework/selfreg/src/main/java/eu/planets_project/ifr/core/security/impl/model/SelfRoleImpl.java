@@ -30,8 +30,13 @@ import eu.planets_project.ifr.core.security.api.model.Role;
 public class SelfRoleImpl implements Role,  Serializable {
     private static final long serialVersionUID = 3690197650654049848L;
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
+    @Column(name="name", length=20, nullable=false, unique=true)
     private String name;
+    @Column(name="description", length=64)
     private String description;
 
     /**
@@ -51,9 +56,9 @@ public class SelfRoleImpl implements Role,  Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.Role#getId()
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id", nullable = false, unique = true)
     public Long getId() {
         return id;
     }
@@ -62,7 +67,7 @@ public class SelfRoleImpl implements Role,  Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.Role#getName()
      */
-    @Column(name="name", length=20, nullable=false, unique=true)
+//    @Column(name="name", length=20, nullable=false, unique=true)
     public String getName() {
         return this.name;
     }
@@ -71,7 +76,7 @@ public class SelfRoleImpl implements Role,  Serializable {
      * {@inheritDoc}
      * @see eu.planets_project.ifr.core.security.api.model.Role#getDescription()
      */
-    @Column(name="description", length=64)
+//    @Column(name="description", length=64)
     public String getDescription() {
         return this.description;
     }

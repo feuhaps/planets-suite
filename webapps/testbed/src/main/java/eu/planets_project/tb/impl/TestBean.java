@@ -22,6 +22,7 @@ import eu.planets_project.tb.impl.persistency.ExperimentPersistencyImpl;
 @Entity
 public class TestBean implements java.io.Serializable{
 	
+	@Id
 	private int id;
 	private String name;
 	
@@ -37,7 +38,7 @@ public class TestBean implements java.io.Serializable{
 	 * Every Persisted Value of this Entity must contain either a private or public
 	 * setter and getter. 
 	 */
-	@Id
+//	@Id
 	public int getId(){
 		return this.id;
 	}
